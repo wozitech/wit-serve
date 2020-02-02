@@ -1,1 +1,0 @@
-import '@feathersjs/transport-commons';
