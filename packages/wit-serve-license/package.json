@@ -1,0 +1,28 @@
+{
+  "name": "wit-serve-license",
+  "version": "0.0.0",
+  "description": "wit-serve license service",
+  "keywords": [
+    "wit-serve",
+    "license"
+  ],
+  "author": "Warren Ayling <warren.ayling@wozitech-ltd.co.uk>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1",
+    "build": "tsc",
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@feathersjs/express": "^4.5.1",
+    "@feathersjs/feathers": "^4.5.1",
+    "@feathersjs/socketio": "^4.5.1"
+  },
+  "devDependencies": {
+    "ts-jest": "^25.1.0",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}
