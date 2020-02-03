@@ -10,22 +10,22 @@ interface Message {
 }
 
 // A messages service that allows to create new
-// and return all existing messages
+// and return all existing messages\
 class MessageService {
   messages: Message[] = [];
 
-  async find () {
+  async find(): Promise<Message[]> {
     // Just return all our messages
     return this.messages;
   }
 
-  async create (data: Pick<Message, 'text'>) {
+  async create(data: Pick<Message, 'text'>): Promise<Message> {
     // The new message is the data text with a unique identifier added
     // using the messages length since it changes whenever we add one
     const message: Message = {
       id: this.messages.length,
       text: data.text
-    }
+    };
 
     // Add new message to the list
     this.messages.push(message);
@@ -42,6 +42,7 @@ app.use(express.original.json());
 // Express middleware to parse URL-encoded params
 app.use(express.original.urlencoded({ extended: true }));
 // Express middleware to to host static files from the current folder
+declare const __dirname: string;
 app.use(express.original.static(__dirname));
 // Add REST API support
 app.configure(express.rest());
@@ -53,20 +54,19 @@ app.use('/messages', new MessageService());
 app.use(express.errorHandler());
 
 // Add any new real-time connection to the `everybody` channel
-app.on('connection', connection =>
-  app.channel('everybody').join(connection)
-);
+app.on('connection', connection => app.channel('everybody').join(connection));
 // Publish all events to the `everybody` channel
 app.publish(data => app.channel('everybody'));
 
 // Start the server
-app.listen(3030).on('listening', () =>
-  console.log('Feathers server listening on localhost:3030')
-);
+app
+  .listen(3030)
+  .on('listening', () =>
+    console.log('Feathers server listening on localhost:3030')
+  );
 
 // For good measure let's create a message
 // So our API doesn't look so empty
 app.service('messages').create({
   text: 'Hello world from the server'
 });
-
