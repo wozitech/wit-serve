@@ -2,6 +2,8 @@ import feathers from '@feathersjs/feathers';
 import '@feathersjs/transport-commons';
 import express from '@feathersjs/express';
 import socketio from '@feathersjs/socketio';
+import process from 'process';
+
 
 // This is the interface for the message data
 interface Message {
@@ -59,10 +61,11 @@ app.on('connection', connection => app.channel('everybody').join(connection));
 app.publish(data => app.channel('everybody'));
 
 // Start the server
+const LISTEN_PORT = process.env.PORT || 3030;
 app
-  .listen(3030)
+  .listen(LISTEN_PORT)
   .on('listening', () =>
-    console.log('Feathers server listening on localhost:3030')
+    console.log(`Feathers server listening on localhost:${LISTEN_PORT}`)
   );
 
 // For good measure let's create a message
